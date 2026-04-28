@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pRSS</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</head>
+<body x-data="app()" class="dark">
+    <header class="topbar">
+        <h1 class="logo">📡 pRSS</h1>
+        <input
+            type="text"
+            placeholder="Search titles..."
+            x-model="search"
+            @input.debounce.300ms="loadArticles()"
+            class="search-input"
+        >
+        <button @click="refreshFeeds()" class="btn-refresh">
+            🔄 Refresh now
+        </button>
+    </header>
+
+    <div class="layout">
+        <!-- Sidebar filters -->
+        <aside class="sidebar">
+            <h3>Sources</h3>
+            <div class="filter-group">
+                <template x-for="feed in feeds" :key="feed.id">
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            :value="feed.id"
+                            x-model="selectedFeeds"
+                            @change="loadArticles()"
+                        >
+                        <span x-text="feed.name"></span>
+                    </label>
+                </template>
+            </div>
+
+            <h3>Date range</h3>
+            <div class="filter-group">
+                <label>From</label>
+                <input type="date" x-model="dateFrom" @change="loadArticles()">
+                <label>To</label>
+                <input type="date" x-model="dateTo" @change="loadArticles()">
+            </div>
+        </aside>
+
+        <!-- Main articles grid -->
+        <main class="content">
+            <div class="article-grid">
+                <template x-for="article in articles" :key="article.id">
+                    <div class="card" @click="openArticle(article)">
+                        <div class="card-image">
+                            <img
+                                :src="article.image_url || '/static/assets/placeholder.svg'"
+                                alt=""
+                                loading="lazy"
+                            >
+                        </div>
+                        <div class="card-body">
+                            <h3 x-text="article.title"></h3>
+                            <span class="source" x-text="article.feed?.name || 'Unknown source'"></span>
+                            <span class="date" x-text="formatDate(article.published_at)"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="pagination" x-show="hasMore">
+                <button @click="loadMore()" class="btn-load">Load more articles</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Article detail modal -->
+    <div class="modal-overlay" x-show="showModal" @click.self="showModal = false">
+        <div class="modal-content">
+            <button class="modal-close" @click="showModal = false">✕</button>
+            <h2 x-text="currentArticle?.title"></h2>
+            <div class="modal-meta">
+                <span x-text="currentArticle?.feed?.name"></span>
+                <span x-text="formatDate(currentArticle?.published_at)"></span>
+            </div>
+            <div class="modal-body" x-html="currentArticle?.content || currentArticle?.description || 'No content available'"></div>
+            <a :href="currentArticle?.link" target="_blank" class="original-link">Read original ↗</a>
+        </div>
+    </div>
+</body>
+</html>
