@@ -39,6 +39,9 @@ cd pRSS
 # Install dependencies with uv
 uv sync
 uv run uvicorn backend.main:app --reload
+```
+
+
 
 ### Adding your first feed
 
@@ -86,3 +89,5 @@ pRSS/
 ### License
 
 MIT – see the LICENSE.md
+
+  
