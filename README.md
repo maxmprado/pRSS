@@ -4,7 +4,7 @@
 
 pRSS fetches articles from your favourite RSS feeds, stores them locally, and presents them in a clean  dashboard. Filter by source, search by title.
 
-![pRSS screenshot](assets/screenshot.png)
+![pRSS screenshot](frontend/assets/screenshot.png)
 
 ## Features
 
@@ -40,7 +40,7 @@ cd pRSS
 uv sync
 uv run uvicorn backend.main:app --reload
 
-## Adding your first feed
+### Adding your first feed
 
 1. Go to **/docs** for the interactive API documentation.
 
@@ -61,7 +61,7 @@ Key endpoints:
 - `POST /api/refresh` – trigger an immediate refresh of all feeds
 
 
-## Project Structure
+### Project Structure
 
 pRSS/
 ├── backend/
@@ -83,6 +83,6 @@ pRSS/
 │   └── assets/
 └── pyproject.toml
 
-## License
+### License
 
 MIT – see the LICENSE.md
