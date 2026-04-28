@@ -66,7 +66,8 @@ Key endpoints:
 
 ### Project Structure
 
-pRSS/
+```bash
+RSS/
 ├── backend/
 │   ├── main.py            # FastAPI app entry point
 │   ├── database.py        # Database connection & session
@@ -85,9 +86,11 @@ pRSS/
 │   ├── js/app.js          # Alpine.js component logic
 │   └── assets/
 └── pyproject.toml
+```
+
 
 ### License
 
-MIT – see the LICENSE.md
+MIT – see the ![LICENSE](LICENSE)
 
   
