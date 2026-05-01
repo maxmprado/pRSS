@@ -2,7 +2,7 @@
 
 > A self-hosted RSS news aggregator with a simple interface.
 
-pRSS fetches articles from your favourite RSS feeds, stores them locally, and presents them in a clean  dashboard. Filter by source, search by title.
+pRSS fetches articles from your favourite RSS feeds, stores them locally, and presents them in a clean  dashboard. Filter by source or date, search by title.
 
 ![pRSS screenshot](frontend/assets/screenshot.png)
 
@@ -67,7 +67,7 @@ Key endpoints:
 ### Project Structure
 
 ```bash
-RSS/
+pRSS/
 ├── backend/
 │   ├── main.py            # FastAPI app entry point
 │   ├── database.py        # Database connection & session
